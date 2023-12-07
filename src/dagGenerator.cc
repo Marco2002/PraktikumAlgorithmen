@@ -12,19 +12,22 @@ void set_seed(int seed) {
 }
 
 graph generate_graph(int number_of_nodes, int number_of_edges, bool should_be_dag) {
-    graph dag = {
-        .nodes_ = {},
-        .edges_ = {}
-    };
+    std::vector<node> nodes;
+    std::vector<edge> edges;
     std::uniform_int_distribution<int> node_distribution(0,number_of_nodes-1);
+    nodes.resize(number_of_nodes);
+    edges.resize(number_of_edges);
+
+    graph dag = {
+            .nodes_ = nodes,
+            .edges_ = edges,
+    };
 
     // generate edges
     for(int i = 0; i < number_of_nodes; ++i) {
-        dag.nodes_.push_back({
-             .outgoing_edges_ = {},
-             .incoming_edges_ = {}
-        });
+        dag.nodes_[i] = {};
     }
+
     // add random edges to nodes
     // edges are added from any node to any other node
     for(int i = 0; i < number_of_edges; ++i) {
@@ -45,15 +48,14 @@ graph generate_graph(int number_of_nodes, int number_of_edges, bool should_be_da
             from = a;
             to = b;
         }
-
-        dag.edges_.push_back({
+        dag.edges_[i] = {
              .from_ = &dag.nodes_[from],
              .to_ = &dag.nodes_[to]
-        });
-        dag.nodes_[from].outgoing_edges_.push_back(&dag.edges_.back());
-        dag.nodes_[to].incoming_edges_.push_back(&dag.edges_.back());
-    }
+        };
+        dag.nodes_[from].outgoing_edges_.push_back(&dag.edges_[i]);
+        dag.nodes_[to].incoming_edges_.push_back(&dag.edges_[i]);
 
+    }
     return dag;
 }
 

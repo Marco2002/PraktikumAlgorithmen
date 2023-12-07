@@ -32,11 +32,17 @@ TEST(dagGenerator, isDeterministicWithSeed) {
 }
 
 TEST(dagGenerator, generatesConsitentGraphs) {
-    int num_of_nodes = 5;
-    int num_of_edges = 2;
+    int num_of_nodes = 1000;
+    int num_of_edges = 2000;
     set_seed(30112023);
     graph dag = generate_graph(num_of_nodes, num_of_edges, true);
-    graph graph = generate_graph(num_of_nodes, num_of_edges, false);
+    graph non_dag = generate_graph(num_of_nodes, num_of_edges, false);
+
+    ASSERT_TRUE(dag.nodes_.size() == num_of_nodes);
+    ASSERT_TRUE(dag.edges_.size() == num_of_edges);
+
+    ASSERT_TRUE(non_dag.nodes_.size() == num_of_nodes);
+    ASSERT_TRUE(non_dag.edges_.size() == num_of_edges);
     // assert that all the incoming and outgoing edges of all the nodes are part of the dag
     for(auto& node : dag.nodes_) {
         for(auto outgoing_edge: node.outgoing_edges_) {
@@ -52,20 +58,20 @@ TEST(dagGenerator, generatesConsitentGraphs) {
         ASSERT_TRUE(node_is_in_graph(edge.to_, &dag));
     }
     // with both conditions combined we have a guarantee
-    // that all the edges of all the nodes lead to nodes that are inside the graph
-    // and that the nodes of all the edges inside the edges_ member are also inside the graph
+    // that all the edges of all the nodes lead to nodes that are inside the non_dag
+    // and that the nodes of all the edges inside the edges_ member are also inside the non_dag
 
-    // repeat for the normal graph
-    for(auto& node : graph.nodes_) {
+    // repeat for the normal non_dag
+    for(auto& node : non_dag.nodes_) {
         for(auto outgoing_edge: node.outgoing_edges_) {
-            ASSERT_TRUE(edge_is_in_graph(outgoing_edge, &graph));
+            ASSERT_TRUE(edge_is_in_graph(outgoing_edge, &non_dag));
         }
         for(auto incoming_edge: node.outgoing_edges_) {
-            ASSERT_TRUE(edge_is_in_graph(incoming_edge, &graph));
+            ASSERT_TRUE(edge_is_in_graph(incoming_edge, &non_dag));
         }
     }
-    for(auto edge : graph.edges_) {
-        ASSERT_TRUE(node_is_in_graph(edge.from_, &graph));
-        ASSERT_TRUE(node_is_in_graph(edge.to_, &graph));
+    for(auto edge : non_dag.edges_) {
+        ASSERT_TRUE(node_is_in_graph(edge.from_, &non_dag));
+        ASSERT_TRUE(node_is_in_graph(edge.to_, &non_dag));
     }
 }
