@@ -1,6 +1,5 @@
 #include "dagGenerator.h"
 
-#include <iostream>
 #include <random>
 #include <algorithm>
 

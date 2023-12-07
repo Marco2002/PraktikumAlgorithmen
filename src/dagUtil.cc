@@ -2,7 +2,6 @@
 
 #include <unordered_map>
 #include <iostream>
-#include <vector>
 
 std::vector<node*> get_topological_order(graph* dag) {
     // the algorithm used for creating a topological order of nodes is Kahn's Algorithm
@@ -30,16 +29,11 @@ std::vector<node*> get_topological_order(graph* dag) {
             node* m = edge->to_;
 
             // increment num_of_visited_edges_for_node for node m
-            if(num_of_visited_edges_for_node.contains(m)) {
-                num_of_visited_edges_for_node[m] = 1;
-            } else {
-                num_of_visited_edges_for_node[m] = num_of_visited_edges_for_node[m] + 1;
-            }
+            num_of_visited_edges_for_node[m] = num_of_visited_edges_for_node[m] + 1;
 
             // check if node m has no more incoming edges and if so add it to the topological order
-            std::cout << "size: " <<  m->incoming_edges_.size() << "\n";
-            if(num_of_visited_edges_for_node[m] == 99) {
-                topological_order.push_back(m);
+            if(num_of_visited_edges_for_node[m] == m->incoming_edges_.size()) {
+                nodes_without_incoming_edge.push_back(m);
             }
         }
     }
