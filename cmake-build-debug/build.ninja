@@ -119,8 +119,15 @@ build install/strip: phony CMakeFiles/install/strip.util
 
 build cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_run: phony || src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir
 
-build src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir/Main.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_run_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src/Main.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_run
-  DEP_FILE = src\CMakeFiles\PraktikumAlgorithmenWS23_24_run.dir\Main.cc.obj.d
+build src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir/dagGenerator.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_run_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src/dagGenerator.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_run
+  DEP_FILE = src\CMakeFiles\PraktikumAlgorithmenWS23_24_run.dir\dagGenerator.cc.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src"
+  OBJECT_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_run.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_run.dir
+
+build src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir/dagUtil.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_run_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src/dagUtil.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_run
+  DEP_FILE = src\CMakeFiles\PraktikumAlgorithmenWS23_24_run.dir\dagUtil.cc.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I"C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src"
   OBJECT_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_run.dir
@@ -134,7 +141,7 @@ build src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir/Main.cc.obj: CXX_COMPIL
 #############################################
 # Link the executable src\PraktikumAlgorithmenWS23_24_run.exe
 
-build src/PraktikumAlgorithmenWS23_24_run.exe: CXX_EXECUTABLE_LINKER__PraktikumAlgorithmenWS23_24_run_Debug src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir/Main.cc.obj
+build src/PraktikumAlgorithmenWS23_24_run.exe: CXX_EXECUTABLE_LINKER__PraktikumAlgorithmenWS23_24_run_Debug src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir/dagGenerator.cc.obj src/CMakeFiles/PraktikumAlgorithmenWS23_24_run.dir/dagUtil.cc.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_run.dir
@@ -153,8 +160,15 @@ build src/PraktikumAlgorithmenWS23_24_run.exe: CXX_EXECUTABLE_LINKER__PraktikumA
 
 build cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_lib: phony || src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir
 
-build src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir/Main.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_lib_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src/Main.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_lib
-  DEP_FILE = src\CMakeFiles\PraktikumAlgorithmenWS23_24_lib.dir\Main.cc.obj.d
+build src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir/dagGenerator.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_lib_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src/dagGenerator.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_lib
+  DEP_FILE = src\CMakeFiles\PraktikumAlgorithmenWS23_24_lib.dir\dagGenerator.cc.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src"
+  OBJECT_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_lib.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_lib.dir
+
+build src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir/dagUtil.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_lib_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src/dagUtil.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_lib
+  DEP_FILE = src\CMakeFiles\PraktikumAlgorithmenWS23_24_lib.dir\dagUtil.cc.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I"C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src"
   OBJECT_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_lib.dir
@@ -168,7 +182,7 @@ build src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir/Main.cc.obj: CXX_COMPIL
 #############################################
 # Link the static library src\libPraktikumAlgorithmenWS23_24_lib.a
 
-build src/libPraktikumAlgorithmenWS23_24_lib.a: CXX_STATIC_LIBRARY_LINKER__PraktikumAlgorithmenWS23_24_lib_Debug src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir/Main.cc.obj
+build src/libPraktikumAlgorithmenWS23_24_lib.a: CXX_STATIC_LIBRARY_LINKER__PraktikumAlgorithmenWS23_24_lib_Debug src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir/dagGenerator.cc.obj src/CMakeFiles/PraktikumAlgorithmenWS23_24_lib.dir/dagUtil.cc.obj
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = src\CMakeFiles\PraktikumAlgorithmenWS23_24_lib.dir
   POST_BUILD = cd .
@@ -255,8 +269,15 @@ build src/install/strip: phony src/CMakeFiles/install/strip.util
 
 build cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_test: phony || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_lib cmake_object_order_depends_target_gtest
 
-build test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/externalTest.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_test_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/test/externalTest.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_test
-  DEP_FILE = test\CMakeFiles\PraktikumAlgorithmenWS23_24_test.dir\externalTest.cc.obj.d
+build test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/dagGeneratorTest.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_test_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/test/dagGeneratorTest.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_test
+  DEP_FILE = test\CMakeFiles\PraktikumAlgorithmenWS23_24_test.dir\dagGeneratorTest.cc.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src" -isystem "C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/lib/googletest/googletest/include" -isystem "C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/lib/googletest/googletest"
+  OBJECT_DIR = test\CMakeFiles\PraktikumAlgorithmenWS23_24_test.dir
+  OBJECT_FILE_DIR = test\CMakeFiles\PraktikumAlgorithmenWS23_24_test.dir
+
+build test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/dagUtilTest.cc.obj: CXX_COMPILER__PraktikumAlgorithmenWS23_24_test_unscanned_Debug C$:/Users/marco/OneDrive$ -$ stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/test/dagUtilTest.cc || cmake_object_order_depends_target_PraktikumAlgorithmenWS23_24_test
+  DEP_FILE = test\CMakeFiles\PraktikumAlgorithmenWS23_24_test.dir\dagUtilTest.cc.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I"C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/src" -isystem "C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/lib/googletest/googletest/include" -isystem "C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/lib/googletest/googletest"
   OBJECT_DIR = test\CMakeFiles\PraktikumAlgorithmenWS23_24_test.dir
@@ -277,7 +298,7 @@ build test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/main.cc.obj: CXX_COMP
 #############################################
 # Link the executable test\PraktikumAlgorithmenWS23_24_test.exe
 
-build test/PraktikumAlgorithmenWS23_24_test.exe: CXX_EXECUTABLE_LINKER__PraktikumAlgorithmenWS23_24_test_Debug test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/externalTest.cc.obj test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/main.cc.obj | src/libPraktikumAlgorithmenWS23_24_lib.a lib/libgtest.a || lib/libgtest.a src/libPraktikumAlgorithmenWS23_24_lib.a
+build test/PraktikumAlgorithmenWS23_24_test.exe: CXX_EXECUTABLE_LINKER__PraktikumAlgorithmenWS23_24_test_Debug test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/dagGeneratorTest.cc.obj test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/dagUtilTest.cc.obj test/CMakeFiles/PraktikumAlgorithmenWS23_24_test.dir/main.cc.obj | src/libPraktikumAlgorithmenWS23_24_lib.a lib/libgtest.a || lib/libgtest.a src/libPraktikumAlgorithmenWS23_24_lib.a
   FLAGS = -g
   LINK_LIBRARIES = src/libPraktikumAlgorithmenWS23_24_lib.a  lib/libgtest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = test\CMakeFiles\PraktikumAlgorithmenWS23_24_test.dir

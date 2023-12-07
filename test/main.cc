@@ -1,6 +1,3 @@
-//
-// Created by marco on 26/11/2023.
-//
 #include "gtest/gtest.h"
 
 int main(int argc, char** argv) {
