@@ -19,7 +19,7 @@ graph generate_graph(int number_of_nodes, int number_of_edges, bool should_be_da
 
     graph dag = {
             .nodes_ = nodes,
-            .edges_ = edges,
+            .number_of_edges_ = number_of_edges,
     };
 
     // generate edges
@@ -47,12 +47,9 @@ graph generate_graph(int number_of_nodes, int number_of_edges, bool should_be_da
             from = a;
             to = b;
         }
-        dag.edges_[i] = {
-             .from_ = &dag.nodes_[from],
-             .to_ = &dag.nodes_[to]
-        };
-        dag.nodes_[from].outgoing_edges_.push_back(&dag.edges_[i]);
-        dag.nodes_[to].incoming_edges_.push_back(&dag.edges_[i]);
+
+        dag.nodes_[from].outgoing_edges_.push_back(&dag.nodes_[to]); // add the destination node to the outgoing edges of the origin node
+        dag.nodes_[to].incoming_edges_.push_back(&dag.nodes_[from]); // add the origin node to the incoming edges of the destination node
 
     }
     return dag;

@@ -8,6 +8,7 @@ std::vector<node*> get_topological_order(graph* dag) {
     std::vector<node*> topological_order = {};
     std::vector<node*> nodes_without_incoming_edge = {};
     std::unordered_map<node*, int> num_of_visited_edges_for_node = {}; // this map keeps track of the number of visited edges by Kahn's Algorithm for each node
+    int visited_edges_total = 0; // this variable keeps track of the total number of visited edges
 
     // Look for all nodes that have no incoming edges and store them in nodes_without_incoming_edge
     for(auto& n : dag->nodes_) {
@@ -25,11 +26,11 @@ std::vector<node*> get_topological_order(graph* dag) {
         topological_order.push_back(n);
 
         // loop through each edge e of each node m that has an incoming edge from n to m
-        for(auto edge : n->outgoing_edges_) {
-            node* m = edge->to_;
+        for(auto m : n->outgoing_edges_) {
 
             // increment num_of_visited_edges_for_node for node m
             num_of_visited_edges_for_node[m] = num_of_visited_edges_for_node[m] + 1;
+            visited_edges_total += 1;
 
             // check if node m has no more incoming edges and if so add it to the topological order
             if(num_of_visited_edges_for_node[m] == m->incoming_edges_.size()) {
@@ -39,11 +40,7 @@ std::vector<node*> get_topological_order(graph* dag) {
     }
 
     // check if input graph is a dag
-    int visited_edges_total = 0;
-    for(auto visited_edges_pair : num_of_visited_edges_for_node) {
-        visited_edges_total += visited_edges_pair.second;
-    }
-    if(visited_edges_total != dag->edges_.size()) {
+    if(visited_edges_total != dag->number_of_edges_) {
         throw std::invalid_argument( "the input graph is not a dag" );
     } else {
         return topological_order;
