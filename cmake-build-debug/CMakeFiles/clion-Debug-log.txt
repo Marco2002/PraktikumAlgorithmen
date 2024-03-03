@@ -1,13 +1,4 @@
 "E:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=E:/Program Files/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S "C:\Users\marco\OneDrive - stud.tu-darmstadt.de\workspace\PraktikumAlgorithmenWS23-24" -B "C:\Users\marco\OneDrive - stud.tu-darmstadt.de\workspace\PraktikumAlgorithmenWS23-24\cmake-build-debug"
--- Configuring done (0.5s)
-CMake Error at test/CMakeLists.txt:7 (add_executable):
-  Cannot find source file:
-
-    test.cc
-
-
-CMake Error at test/CMakeLists.txt:7 (add_executable):
-  No SOURCES given to target: PraktikumAlgorithmenWS23_24_test
-
-
-CMake Generate step failed.  Build files cannot be regenerated correctly.
+-- Configuring done (1.8s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/cmake-build-debug

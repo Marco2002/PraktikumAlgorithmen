@@ -558,7 +558,7 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Python3
-FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[C:/Program Files/WindowsApps/PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0/python3.11.exe][cfound components: Interpreter ][v3.11.7()]
+FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[E:/Users/marco/anaconda3/python.exe][cfound components: Interpreter ][v3.11.5()]
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
@@ -568,10 +568,10 @@ _Python3_Compiler_REASON_FAILURE:INTERNAL=
 //Development reason failure
 _Python3_Development_REASON_FAILURE:INTERNAL=
 //Path to a program.
-_Python3_EXECUTABLE:INTERNAL=C:/Program Files/WindowsApps/PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0/python3.11.exe
+_Python3_EXECUTABLE:INTERNAL=E:/Users/marco/anaconda3/python.exe
 //Python3 Properties
-_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;11;7;64;;cp311-win_amd64;;C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib;C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib;C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\site-packages;C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2032.0_x64__qbz5n2kfra8p0\Lib\site-packages
-_Python3_INTERPRETER_SIGNATURE:INTERNAL=13c5ce15028bffd70ae6bea2839ada27
+_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;11;5;64;;cp311-win_amd64;;E:\Users\marco\anaconda3\Lib;E:\Users\marco\anaconda3\Lib;E:\Users\marco\anaconda3\Lib\site-packages;E:\Users\marco\anaconda3\Lib\site-packages
+_Python3_INTERPRETER_SIGNATURE:INTERNAL=1e70321b158449c659cace27ef3439c1
 //Interpreter reason failure
 _Python3_Interpreter_REASON_FAILURE:INTERNAL=
 //NumPy reason failure

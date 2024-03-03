@@ -1,16 +1,6 @@
 #include "gtest/gtest.h"
 #include "dagGenerator.h"
-
-#include <algorithm>
-
-// looks for the given node in the given graph
-// return -1 if the node is not inside the graph and the index of the node in the graph's nodes if the node is inside the graph
-int find_node_in_graph(node* node, graph* graph) {
-    for(int i = 0; i < graph->nodes_.size(); i++) {
-        if(&(graph->nodes_[i]) == node) return i;
-    }
-    return -1;
-}
+#include "dagUtil.h"
 
 TEST(dagGenerator, isDeterministicWithSeed) {
     int num_of_nodes = 1000;
@@ -42,7 +32,7 @@ TEST(dagGenerator, generatesConsitentGraphs) {
 
     ASSERT_TRUE(non_dag.nodes_.size() == number_of_nodes);
     ASSERT_TRUE(non_dag.number_of_edges_ == number_of_edges);
-    // assert that all the nodes of all the incoming and outgoing edges of all the nodes are part of the dag
+    // assert that all the node's incoming and outgoing edges lead to nodes that are also part of the graph
     for(auto& node : dag.nodes_) {
         for(auto n: node.outgoing_edges_) {
             ASSERT_TRUE(find_node_in_graph(n, &dag) >= 0);
@@ -61,4 +51,21 @@ TEST(dagGenerator, generatesConsitentGraphs) {
             ASSERT_TRUE(find_node_in_graph(n, &non_dag) >= 0);
         }
     }
+}
+
+TEST(dagGenerator, canGenerateDag) {
+    int num_of_nodes = 1000;
+    int num_of_edges = 2000;
+    set_seed(21012024);
+    graph dag = generate_graph(num_of_nodes, num_of_edges, true);
+    ASSERT_TRUE(graph_is_in_topological_order(&dag));
+}
+
+TEST(dagGenerator, canGenerateNonDag) {
+    int num_of_nodes = 1000;
+    int num_of_edges = 2000;
+    set_seed(21012024);
+    graph non_dag = generate_graph(num_of_nodes, num_of_edges, false);
+    ASSERT_FALSE(graph_is_in_topological_order(&non_dag));
+    EXPECT_THROW(std::vector<node*> topological_order = get_topological_order(&non_dag), std::invalid_argument);
 }

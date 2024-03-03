@@ -7,11 +7,6 @@ namespace graphs {
 		std::vector<node*> incoming_edges_;
 	};
 
-	struct edge {
-		node* from_;
-		node* to_;
-	};
-
     struct graph {
         std::vector<node> nodes_;
         int number_of_edges_;

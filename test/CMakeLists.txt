@@ -5,10 +5,7 @@ file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false *.h *.cc)
 set(SOURCES ${TEST_SOURCES})
 
 add_executable(${BINARY} ${TEST_SOURCES}
-        dagGeneratorTest.cc
-        dagUtilTest.cc
-        main.cc
-)
+        main.cc)
 
 add_test(NAME ${BINARY} COMMAND ${BINARY})
 
