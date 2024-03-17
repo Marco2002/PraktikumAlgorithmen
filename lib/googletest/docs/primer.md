@@ -252,14 +252,14 @@ GoogleTest always deletes a test fixture before it creates the next one.
 GoogleTest does **not** reuse the same test fixture for multiple tests. Any
 changes one test makes to the fixture do not affect other tests.
 
-As an example, let's write tests for a FIFO queue class named `Queue`, which has
+As an example, let's write tests for a FIFO queue class named `EdgeQueue`, which has
 the following interface:
 
 ```c++
 template <typename E>  // E is the element type.
-class Queue {
+class EdgeQueue {
  public:
-  Queue();
+  EdgeQueue();
   void Enqueue(const E& element);
   E* Dequeue();  // Returns NULL if the queue is empty.
   size_t size() const;
@@ -282,9 +282,9 @@ class QueueTest : public ::testing::Test {
 
   // void TearDown() override {}
 
-  Queue<int> q0_;
-  Queue<int> q1_;
-  Queue<int> q2_;
+  EdgeQueue<int> q0_;
+  EdgeQueue<int> q1_;
+  EdgeQueue<int> q2_;
 };
 ```
 

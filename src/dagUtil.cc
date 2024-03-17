@@ -4,7 +4,7 @@
 #include <iostream>
 #include <algorithm>
 
-std::vector<node*> get_topological_order(graph* dag) {
+void set_to_topological_order(graph& dag) {
     // the algorithm used for creating a topological order of nodes is Kahn's Algorithm
     std::vector<node*> topological_order = {};
     std::vector<node*> nodes_without_incoming_edge = {};
@@ -12,8 +12,7 @@ std::vector<node*> get_topological_order(graph* dag) {
     int visited_edges_total = 0; // this variable keeps track of the total number of visited edges
 
     // Look for all nodes that have no incoming edges and store them in nodes_without_incoming_edge
-    for(auto& n : dag->nodes_) {
-        node* node = &n;
+    for(auto node : dag.nodes_) {
         if(node->incoming_edges_.empty()) {
             nodes_without_incoming_edge.push_back(node);
         }
@@ -41,41 +40,29 @@ std::vector<node*> get_topological_order(graph* dag) {
     }
 
     // check if input graph is a dag
-    if(visited_edges_total != dag->number_of_edges_) {
+    if(visited_edges_total != dag.number_of_edges_) {
         throw std::invalid_argument( "the input graph is not a dag" );
     } else {
-        return topological_order;
+        dag.nodes_ = topological_order;
     }
 }
 
 // looks for the given node in the given graph
 // return -1 if the node is not inside the graph and the index of the node in the graph's nodes if the node is inside the graph
-int find_node_in_graph(node* node, graph* graph) {
-    for(int i = 0; i < graph->nodes_.size(); i++) {
-        if(&(graph->nodes_[i]) == node) return i;
+int find_node_in_graph(node* node, graph& graph) {
+    for(int i = 0; i < graph.nodes_.size(); i++) {
+        if(graph.nodes_[i] == node) return i;
     }
     return -1;
 }
 
-bool graph_is_in_topological_order(graph* graph) {
-    for(int i = 0; i < graph->nodes_.size(); i++) {
-        for(auto n : graph->nodes_[i].incoming_edges_) {
+bool graph_is_in_topological_order(graph& graph) {
+    for(int i = 0; i < graph.nodes_.size(); i++) {
+        for(auto n : graph.nodes_[i]->incoming_edges_) {
             if(find_node_in_graph(n, graph) > i) return false;
         }
-        for(auto n : graph->nodes_[i].outgoing_edges_) {
+        for(auto n : graph.nodes_[i]->outgoing_edges_) {
             if(find_node_in_graph(n, graph) < i) return false;
-        }
-    }
-    return true;
-}
-
-bool list_is_a_topological_order(std::vector<node*> nodes) {
-    for(int i = 0; i < nodes.size(); i++) {
-        for(auto n : (*nodes[i]).incoming_edges_) {
-            if(std::find(nodes.begin(), nodes.end(), n) - nodes.begin() > i) return false;
-        }
-        for(auto n : (*nodes[i]).outgoing_edges_) {
-            if(std::find(nodes.begin(), nodes.end(), n) - nodes.begin()  < i) return false;
         }
     }
     return true;

@@ -1,11 +1,14 @@
 #include "gtest/gtest.h"
 #include "insertionAlgorithm.h"
+#include "dagGenerator.h"
+#include "dagUtil.h"
 
 TEST(insertionAlgorithm, ShiftTestDeterministic) {
-    int starting_index = 0;
-    int number_of_nodes = 9;
     // hard coded test case based on graph from Figure 3
     // in "A Batch Algorithm for Maintaining a Topological Order" by David J Pearce
+    int starting_index = 0;
+    int number_of_nodes = 9;
+
     std::vector<node> nodes;
     nodes.resize(number_of_nodes);
     for(int i = 0; i < number_of_nodes; ++i) {
@@ -21,7 +24,7 @@ TEST(insertionAlgorithm, ShiftTestDeterministic) {
     }
 
     // new edges in queue
-    std::stack<std::tuple<node*, node*>> queue;
+    EdgeQueue queue;
 
     queue.emplace(&nodes[2], &nodes[8]);
     queue.emplace(&nodes[4], &nodes[8]);
@@ -46,11 +49,12 @@ TEST(insertionAlgorithm, ShiftTestDeterministic) {
 }
 
 TEST(insertionAlgorithm, DiscoverTestDeterministic) {
-    int number_of_nodes = 9;
     // hard coded test case based on graph from Affected Region 3 in Figure 2
     // in "A Batch Algorithm for Maintaining a Topological Order" by David J Pearce
+    int number_of_nodes = 9;
+
     std::vector<node> nodes;
-    std::vector<std::tuple<node*, node*>> edge_insertions;
+    std::vector<Edge> edge_insertions;
     nodes.resize(number_of_nodes);
     for(int i = 0; i < number_of_nodes; ++i) {
         nodes[i] = {};
@@ -98,4 +102,67 @@ TEST(insertionAlgorithm, DiscoverTestDeterministic) {
     ASSERT_EQ(n6, &nodes[8]);
     queue.pop();
     ASSERT_TRUE(queue.empty());
+}
+
+TEST(insertionAlgorithm, InsertEdgeTestDeterministic) {
+    // hard coded test case based on Figure 1
+    // in "A Batch Algorithm for Maintaining a Topological Order" by David J Pearce
+    int number_of_nodes = 7;
+    std::vector<node*> nodes;
+    nodes.resize(number_of_nodes);
+    for(int i = 0; i < number_of_nodes; ++i) {
+        nodes[i] = new node;
+    }
+    // replicate edges from example
+    nodes[0]->outgoing_edges_.push_back(nodes[2]);
+    nodes[2]->incoming_edges_.push_back(nodes[0]);
+    nodes[2]->outgoing_edges_.push_back(nodes[4]);
+    nodes[4]->incoming_edges_.push_back(nodes[2]);
+    nodes[1]->outgoing_edges_.push_back(nodes[4]);
+    nodes[4]->incoming_edges_.push_back(nodes[1]);
+    nodes[5]->outgoing_edges_.push_back(nodes[6]);
+    nodes[6]->incoming_edges_.push_back(nodes[5]);
+
+    graph dag = {
+        .nodes_ = nodes,
+        .number_of_edges_ = 4,
+    };
+
+    // invalidating edge insertion
+    std::vector<Edge> new_edges = {};
+    new_edges.emplace_back(nodes[6], nodes[0]);
+
+    insert_edges(dag, new_edges);
+    ASSERT_EQ(dag.nodes_[0]->outgoing_edges_[0], dag.nodes_[6]);
+    ASSERT_EQ(dag.nodes_[6]->incoming_edges_[1], dag.nodes_[0]);
+    ASSERT_EQ(dag.nodes_[2]->outgoing_edges_[0], dag.nodes_[3]);
+    ASSERT_EQ(dag.nodes_[3]->incoming_edges_[0], dag.nodes_[2]);
+    ASSERT_EQ(dag.nodes_[3]->outgoing_edges_[0], dag.nodes_[4]);
+    ASSERT_EQ(dag.nodes_[4]->incoming_edges_[0], dag.nodes_[3]);
+    ASSERT_EQ(dag.nodes_[4]->outgoing_edges_[0], dag.nodes_[5]);
+    ASSERT_EQ(dag.nodes_[5]->incoming_edges_[0], dag.nodes_[4]);
+    ASSERT_EQ(dag.nodes_[5]->outgoing_edges_[0], dag.nodes_[6]);
+    ASSERT_EQ(dag.nodes_[6]->incoming_edges_[0], dag.nodes_[5]);
+    ASSERT_TRUE(graph_is_in_topological_order(dag));
+}
+
+TEST(insertionAlgorithm, FullAlgorihmDeterministic) {
+    int num_of_nodes = 1000;
+    int num_of_edges = 3000;
+    int num_of_new_edges = 2000; // 517 will be invalidating
+    set_seed(21012024);
+
+    graph dag = generate_graph(num_of_nodes, num_of_edges, true);
+    // generate new edges (all of them won't invalidate the current topological order)
+    std::vector<Edge> new_edges = generate_extra_edges(dag, num_of_new_edges);
+
+    // bring the dag into another topological order by shuffling and reordering
+    shuffle_graph(dag);
+    set_to_topological_order(dag);
+    ASSERT_TRUE(graph_is_in_topological_order(dag));
+    // now some of the edges will be invalidating the current topological order, but the graph will remain a dag
+
+    // insert new edges
+    insert_edges(dag, new_edges);
+    ASSERT_TRUE(graph_is_in_topological_order(dag));
 }

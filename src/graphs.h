@@ -8,7 +8,9 @@ namespace graphs {
 	};
 
     struct graph {
-        std::vector<node> nodes_;
+        std::vector<node*> nodes_;
         int number_of_edges_;
     };
+
+    using Edge = std::tuple<node*, node*>;
 } // namespace dag - contains struct for nodes and edges
