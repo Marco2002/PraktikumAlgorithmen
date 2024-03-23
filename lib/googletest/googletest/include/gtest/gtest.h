@@ -856,7 +856,7 @@ class GTEST_API_ TestSuite {
   std::vector<TestInfo*> test_info_list_;
   // Provides a level of indirection for the test list to allow easy
   // shuffling and restoring the test order.  The i-th element in this
-  // vector is the index of the i-th test in the shuffled test list.
+  // vector is the index_ of the i-th test in the shuffled test list.
   std::vector<int> test_indices_;
   // Pointer to the function that sets up the test suite.
   internal::SetUpTestSuiteFunc set_up_tc_;
@@ -932,7 +932,7 @@ class TestEventListener {
 
   // Fired before each iteration of tests starts.  There may be more than
   // one iteration if GTEST_FLAG(repeat) is set. iteration is the iteration
-  // index, starting from 0.
+  // index_, starting from 0.
   virtual void OnTestIterationStart(const UnitTest& unit_test,
                                     int iteration) = 0;
 

@@ -2634,7 +2634,7 @@ class PointwiseMatcher {
     }
     void DescribeNegationTo(::std::ostream* os) const override {
       *os << "doesn't contain exactly " << rhs_.size()
-          << " values, or contains a value x at some index i"
+          << " values, or contains a value x at some index_ i"
           << " where x and the i-th value of ";
       UniversalPrint(rhs_, os);
       *os << " ";
@@ -2666,7 +2666,7 @@ class PointwiseMatcher {
             UniversalPrint(*left, listener->stream());
             *listener << ", ";
             UniversalPrint(*right, listener->stream());
-            *listener << ") at index #" << i << " don't match";
+            *listener << ") at index_ #" << i << " don't match";
             PrintIfNotEmpty(inner_listener.str(), listener->stream());
             return false;
           }
@@ -3424,7 +3424,7 @@ class ElementsAreMatcherImpl : public MatcherInterface<Container> {
 
     const bool listener_interested = listener->IsInterested();
 
-    // explanations[i] is the explanation of the element at index i.
+    // explanations[i] is the explanation of the element at index_ i.
     ::std::vector<std::string> explanations(count());
     StlContainerReference stl_container = View::ConstReference(container);
     auto it = stl_container.begin();
@@ -3449,7 +3449,7 @@ class ElementsAreMatcherImpl : public MatcherInterface<Container> {
         break;
       }
     }
-    // If mismatch_found is true, 'exam_pos' is the index of the mismatch.
+    // If mismatch_found is true, 'exam_pos' is the index_ of the mismatch.
 
     // Find how many elements the actual container has.  We avoid
     // calling size() s.t. this code works for stream-like "containers"

@@ -5,6 +5,7 @@ namespace graphs {
     struct node {
 		std::vector<node*> outgoing_edges_;
 		std::vector<node*> incoming_edges_;
+        int index_; // current index_ in the vector of nodes of the graph
 	};
 
     struct graph {

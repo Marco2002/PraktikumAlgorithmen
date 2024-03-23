@@ -9,6 +9,7 @@ void set_to_topological_order(graph& dag) {
     std::vector<node*> nodes_without_incoming_edge = {};
     std::unordered_map<node*, int> num_of_visited_edges_for_node = {}; // this map keeps track of the number of visited edges by Kahn's Algorithm for each node
     int visited_edges_total = 0; // this variable keeps track of the total number of visited edges
+    int number_of_saved_nodes = 0; // the number of so far stored nodes in the new topological order
 
     // Look for all nodes that have no incoming edges and store them in nodes_without_incoming_edge
     for(auto node : dag.nodes_) {
@@ -23,6 +24,8 @@ void set_to_topological_order(graph& dag) {
         nodes_without_incoming_edge.pop_back();
         // add node n to topological order
         topological_order.push_back(n);
+        n->index_ = number_of_saved_nodes;
+        ++number_of_saved_nodes;
 
         // loop through each edge e of each node m that has an incoming edge from n to m
         for(auto m : n->outgoing_edges_) {
@@ -47,7 +50,7 @@ void set_to_topological_order(graph& dag) {
 }
 
 // looks for the given node in the given graph
-// return -1 if the node is not inside the graph and the index of the node in the graph's nodes if the node is inside the graph
+// return -1 if the node is not inside the graph and the index_ of the node in the graph's nodes if the node is inside the graph
 int find_node_in_graph(node* node, graph& graph) {
     for(int i = 0; i < graph.nodes_.size(); i++) {
         if(graph.nodes_[i] == node) return i;

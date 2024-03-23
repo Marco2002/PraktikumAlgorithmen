@@ -1979,7 +1979,7 @@ your test runner (not part of GoogleTest) needs to do the following:
 1.  Allocate a number of machines (shards) to run the tests.
 1.  On each shard, set the `GTEST_TOTAL_SHARDS` environment variable to the total
     number of shards. It must be the same for all shards.
-1.  On each shard, set the `GTEST_SHARD_INDEX` environment variable to the index
+1.  On each shard, set the `GTEST_SHARD_INDEX` environment variable to the index_
     of the shard. Different shards must be assigned different indices, which
     must be in the range `[0, GTEST_TOTAL_SHARDS - 1]`.
 1.  Run the same test program on all shards. When GoogleTest sees the above two

@@ -126,7 +126,7 @@ GTEST_DEFINE_bool_(
 
 GTEST_DEFINE_string_(
     internal_run_death_test, "",
-    "Indicates the file, line number, temporal index of "
+    "Indicates the file, line number, temporal index_ of "
     "the single death test to run, and a file descriptor to "
     "which a success code may be sent, all separated by "
     "the '|' characters.  This flag is specified if and only if the "
@@ -1559,7 +1559,7 @@ InternalRunDeathTestFlag* ParseInternalRunDeathTestFlag() {
 #elif defined(GTEST_OS_FUCHSIA)
 
   if (fields.size() != 3 || !ParseNaturalNumber(fields[1], &line) ||
-      !ParseNaturalNumber(fields[2], &index)) {
+      !ParseNaturalNumber(fields[2], &index_)) {
     DeathTestAbort("Bad --gtest_internal_run_death_test flag: " +
                    GTEST_FLAG_GET(internal_run_death_test));
   }
@@ -1567,7 +1567,7 @@ InternalRunDeathTestFlag* ParseInternalRunDeathTestFlag() {
 #else
 
   if (fields.size() != 4 || !ParseNaturalNumber(fields[1], &line) ||
-      !ParseNaturalNumber(fields[2], &index) ||
+      !ParseNaturalNumber(fields[2], &index_) ||
       !ParseNaturalNumber(fields[3], &write_fd)) {
     DeathTestAbort("Bad --gtest_internal_run_death_test flag: " +
                    GTEST_FLAG_GET(internal_run_death_test));

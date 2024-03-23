@@ -13,14 +13,12 @@ TEST(insertionAlgorithm, ShiftTestDeterministic) {
     nodes.resize(number_of_nodes);
     for(int i = 0; i < number_of_nodes; ++i) {
         nodes[i] = {};
+        nodes[i].index_ = i;
     }
-    std::unordered_map<node*, int> order;
     std::vector<node*> inv_order;
-    std::unordered_map<node*, bool> vacant;
+    std::vector<bool> vacant(number_of_nodes, false);
     for(int i = 0; i < number_of_nodes; ++i) {
-        order[&nodes[i]] = i;
         inv_order.push_back(&nodes[i]);
-        vacant[&nodes[i]] = false;
     }
 
     // new edges in queue
@@ -31,11 +29,11 @@ TEST(insertionAlgorithm, ShiftTestDeterministic) {
     queue.emplace(&nodes[0], &nodes[6]);
 
     // vacant slots
-    vacant[&nodes[0]] = true;
-    vacant[&nodes[2]] = true;
-    vacant[&nodes[4]] = true;
+    vacant[0] = true;
+    vacant[2] = true;
+    vacant[4] = true;
 
-    shift(starting_index,queue, order, inv_order, vacant);
+    shift(starting_index,queue, inv_order, vacant);
     // compare solution with result in paper
     ASSERT_EQ(inv_order[0], &nodes[1]);
     ASSERT_EQ(inv_order[1], &nodes[3]);
@@ -58,14 +56,12 @@ TEST(insertionAlgorithm, DiscoverTestDeterministic) {
     nodes.resize(number_of_nodes);
     for(int i = 0; i < number_of_nodes; ++i) {
         nodes[i] = {};
+        nodes[i].index_ = i;
     }
-    std::unordered_map<node*, int> order;
     std::vector<node*> inv_order;
-    std::unordered_map<node*, bool> vacant;
+    std::vector<bool> vacant(number_of_nodes, false);
     for(int i = 0; i < number_of_nodes; ++i) {
-        order[&nodes[i]] = i;
         inv_order.push_back(&nodes[i]);
-        vacant[&nodes[i]] = false;
     }
 
     nodes[3].outgoing_edges_.push_back(&nodes[5]);
@@ -83,12 +79,13 @@ TEST(insertionAlgorithm, DiscoverTestDeterministic) {
     nodes[6].outgoing_edges_.push_back(&nodes[0]);
     nodes[0].incoming_edges_.push_back(&nodes[6]);
 
-    auto queue = discover(edge_insertions, order, inv_order, vacant);
+    auto queue = discover(edge_insertions, inv_order, vacant);
 
     for(int i = 0; i<number_of_nodes; ++i) {
-        ASSERT_TRUE((i == 0 || i == 2 || i == 4) ? vacant[inv_order[i]] : !vacant[inv_order[i]]);
+        ASSERT_TRUE((i == 0 || i == 2 || i == 4) ? vacant[i] : !vacant[i]); // assert only nodes 0, 2, 4 are vacant
     }
 
+    // compare queue result to expected result from figure
     auto [n1, n2] = queue.top();
     ASSERT_EQ(n1, &nodes[0]);
     ASSERT_EQ(n2, &nodes[6]);
@@ -112,6 +109,7 @@ TEST(insertionAlgorithm, InsertEdgeTestDeterministic) {
     nodes.resize(number_of_nodes);
     for(int i = 0; i < number_of_nodes; ++i) {
         nodes[i] = new node;
+        nodes[i]->index_ = i;
     }
     // replicate edges from example
     nodes[0]->outgoing_edges_.push_back(nodes[2]);

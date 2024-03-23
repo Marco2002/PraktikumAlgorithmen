@@ -72,7 +72,7 @@ the Git commit hash of the GoogleTest version to use; we recommend updating the
 hash often to point to the latest version.
 
 For more information about how to create `CMakeLists.txt` files, see the
-[CMake Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index.html).
+[CMake Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index_.html).
 
 ## Create and run a binary
 

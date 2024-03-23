@@ -1749,14 +1749,14 @@ struct ThrowAction {
 // mock function arguments.  For example, given
 //
 //   MOCK_METHOD3(Foo, double(const string& label, double x, double y));
-//   MOCK_METHOD3(Bar, double(int index, double x, double y));
+//   MOCK_METHOD3(Bar, double(int index_, double x, double y));
 //
 // instead of
 //
 //   double DistanceToOriginWithLabel(const string& label, double x, double y) {
 //     return sqrt(x*x + y*y);
 //   }
-//   double DistanceToOriginWithIndex(int index, double x, double y) {
+//   double DistanceToOriginWithIndex(int index_, double x, double y) {
 //     return sqrt(x*x + y*y);
 //   }
 //   ...

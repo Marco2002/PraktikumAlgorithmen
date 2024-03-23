@@ -756,8 +756,8 @@ Returns the result of the test. See [`TestResult`](#TestResult).
 Describes a parameter to a value-parameterized test. The type `T` is the type of
 the parameter.
 
-Contains the fields `param` and `index` which hold the value of the parameter
-and its integer index respectively.
+Contains the fields `param` and `index_` which hold the value of the parameter
+and its integer index_ respectively.
 
 ### UnitTest {#UnitTest}
 
@@ -948,7 +948,7 @@ Fired before any test activity starts.
 int iteration)`
 
 Fired before each iteration of tests starts. There may be more than one
-iteration if `GTEST_FLAG(repeat)` is set. `iteration` is the iteration index,
+iteration if `GTEST_FLAG(repeat)` is set. `iteration` is the iteration index_,
 starting from 0.
 
 ##### OnEnvironmentsSetUpStart {#TestEventListener::OnEnvironmentsSetUpStart}
