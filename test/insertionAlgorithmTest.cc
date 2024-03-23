@@ -14,9 +14,9 @@ TEST(insertionAlgorithm, ShiftTestDeterministic) {
     for(int i = 0; i < number_of_nodes; ++i) {
         nodes[i] = {};
     }
-    std::map<node*, int> order;
+    std::unordered_map<node*, int> order;
     std::vector<node*> inv_order;
-    std::map<node*, bool> vacant;
+    std::unordered_map<node*, bool> vacant;
     for(int i = 0; i < number_of_nodes; ++i) {
         order[&nodes[i]] = i;
         inv_order.push_back(&nodes[i]);
@@ -59,9 +59,9 @@ TEST(insertionAlgorithm, DiscoverTestDeterministic) {
     for(int i = 0; i < number_of_nodes; ++i) {
         nodes[i] = {};
     }
-    std::map<node*, int> order;
+    std::unordered_map<node*, int> order;
     std::vector<node*> inv_order;
-    std::map<node*, bool> vacant;
+    std::unordered_map<node*, bool> vacant;
     for(int i = 0; i < number_of_nodes; ++i) {
         order[&nodes[i]] = i;
         inv_order.push_back(&nodes[i]);
@@ -147,9 +147,9 @@ TEST(insertionAlgorithm, InsertEdgeTestDeterministic) {
 }
 
 TEST(insertionAlgorithm, FullAlgorihmDeterministic) {
-    int num_of_nodes = 1000;
-    int num_of_edges = 3000;
-    int num_of_new_edges = 2000; // 517 will be invalidating
+    int num_of_nodes = 3000;
+    int num_of_edges = 6000;
+    int num_of_new_edges = 3000; // 517 will be invalidating
     set_seed(21012024);
 
     graph dag = generate_graph(num_of_nodes, num_of_edges, true);

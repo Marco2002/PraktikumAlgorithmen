@@ -2,7 +2,6 @@
 
 #include <unordered_map>
 #include <iostream>
-#include <algorithm>
 
 void set_to_topological_order(graph& dag) {
     // the algorithm used for creating a topological order of nodes is Kahn's Algorithm
