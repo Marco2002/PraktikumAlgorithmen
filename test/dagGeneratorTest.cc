@@ -2,14 +2,32 @@
 #include "dagGenerator.h"
 #include "dagUtil.h"
 
-TEST(dagGenerator, nodeIndexesAreConsistent) {
-    int num_of_nodes = 1000;
-    int num_of_edges = 2000;
+TEST(dagGenerator, nodeGeneratedCorrectly) {
+    long num_of_nodes = 1000000;
+    long num_of_edges = 0;
     set_seed(30112023);
     graph dag1 = generate_graph(num_of_nodes, num_of_edges, false);
+    ASSERT_EQ(dag1.nodes_.size(), num_of_nodes);
     for(int i = 0; i < num_of_nodes; ++i) {
         ASSERT_EQ(i, dag1.nodes_[i]->index_);
     }
+}
+
+TEST(dagGenerator, edgesGeneratedCorrectly) {
+    long num_of_nodes = 1000000;
+    long long num_of_edges = 3000000000;
+    set_seed(30112023);
+    graph graph = generate_graph(num_of_nodes, num_of_edges, false);
+    ASSERT_EQ(graph.nodes_.size(), num_of_nodes);
+    long long counted_num_of_outgoing_edges = 0;
+    long long counted_num_of_incoming_edges = 0;
+    for(auto n : graph.nodes_) {
+        counted_num_of_outgoing_edges += n->outgoing_edges_.size();
+        counted_num_of_incoming_edges += n->outgoing_edges_.size();
+    }
+    ASSERT_EQ(counted_num_of_outgoing_edges, num_of_edges);
+    ASSERT_EQ(counted_num_of_incoming_edges, num_of_edges);
+    ASSERT_EQ(graph.number_of_edges_, num_of_edges);
 }
 
 TEST(dagGenerator, isDeterministicWithSeed) {

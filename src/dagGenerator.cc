@@ -38,15 +38,15 @@ void set_seed(int seed) {
  * number_of_edges < number_of_nodes * (number_of_nodes-1) if should_be_dag is false
  * number_of_edges < number_of_nodes * (number_of_nodes-1)/2 if should_be_dag is true
  */
-graph generate_graph(long number_of_nodes, long number_of_edges, bool should_be_dag) {
+graph generate_graph(long number_of_nodes, long long number_of_edges, bool should_be_dag) {
     if(number_of_nodes < 2) {
         throw std::invalid_argument( "the number of nodes needs to be at least 2" );
     }
     if(number_of_edges < 0) {
         throw std::invalid_argument( "number of needs to be at least 0" );
     }
-    if(should_be_dag && number_of_edges > number_of_nodes/2 * (number_of_nodes-1) ||
-            !should_be_dag && number_of_edges > number_of_nodes * (number_of_nodes-1)) {
+    if(should_be_dag && number_of_edges > ((long long) number_of_nodes)/2 * (((long long) number_of_nodes) -1) ||
+            !should_be_dag && number_of_edges > ((long long) number_of_nodes) * ((long long) number_of_nodes)-1) {
         throw std::invalid_argument( "too many edges" );
     }
     std::vector<node*> nodes;
@@ -69,7 +69,7 @@ graph generate_graph(long number_of_nodes, long number_of_edges, bool should_be_
     std::unordered_set<std::tuple<long, long>, hash_tuple> generated_edges = {};
     // add random edges to nodes
     // edges are added from any node to any other node
-    for(long i = 0; i < number_of_edges; ++i) {
+    for(long long i = 0; i < number_of_edges; ++i) {
         // generate two random indexes
         long a, b;
         long from, to;
@@ -98,7 +98,7 @@ graph generate_graph(long number_of_nodes, long number_of_edges, bool should_be_
     return dag;
 }
 
-std::vector<Edge> generate_extra_edges(graph& dag, long number_of_edges) {
+std::vector<Edge> generate_extra_edges(graph& dag, long long number_of_edges) {
     std::uniform_int_distribution<long> node_distribution(0,dag.nodes_.size()-1);
     std::unordered_set<std::tuple<long, long>, hash_tuple>  existing_edges = {};
     std::vector<Edge> generated_edges = {};
@@ -111,7 +111,7 @@ std::vector<Edge> generate_extra_edges(graph& dag, long number_of_edges) {
 
 
     // generate random new edges that don't invalidate current topological order
-    for(long i = 0; i < number_of_edges; ++i) {
+    for(long long i = 0; i < number_of_edges; ++i) {
         // generate two random indexes
         long a, b;
         node *from, *to;

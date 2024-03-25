@@ -10,7 +10,7 @@ namespace graphs {
 
     struct graph {
         std::vector<node*> nodes_;
-        long number_of_edges_;
+        long long number_of_edges_;
     };
 
     using Edge = std::tuple<node*, node*>;
