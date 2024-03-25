@@ -16,7 +16,7 @@ struct test_set {
 // generates a dag with num_of_nodes nodes and num_of_edges edges
 // and a set of additional edges of size num_of_new_edges
 // some edges will invalidate the topological order of the dag, but the graph will remain a dag
-test_set generate_test_set(int num_of_nodes, int num_of_edges, int num_of_new_edges, int seed) {
+test_set generate_test_set(long num_of_nodes, long num_of_edges, long num_of_new_edges, int seed) {
     set_seed(seed);
 
     graph dag = generate_graph(num_of_nodes, num_of_edges, true);
@@ -64,9 +64,9 @@ std::chrono::microseconds run_test_kahn(test_set test_set) {
 
 // runs a test with the given parameters 10 times returns the all the durations
 // the 10 runs have the same number_of_nodes, number_of_edges, num_of_new_edges params, but different seeds
-std::vector<std::chrono::microseconds> run_test_repeated(int num_of_nodes, int num_of_edges, int num_of_new_edges, int start_seed, bool pk2) {
+std::vector<std::chrono::microseconds> run_test_repeated(long num_of_nodes, long num_of_edges, long num_of_new_edges, int start_seed, bool pk2) {
     std::vector<std::chrono::microseconds> durations(10);
-    for(int i = 0; i < 10; ++i) {
+    for(int i = 0; i < 1; ++i) {
         auto test_set = generate_test_set(num_of_nodes, num_of_edges, num_of_new_edges, start_seed);
         start_seed++;
         if(pk2) {
@@ -78,7 +78,7 @@ std::vector<std::chrono::microseconds> run_test_repeated(int num_of_nodes, int n
     return durations;
 }
 
-void run_full_test(std::vector<int> num_of_nodes_options, std::vector<double> density_options, std::vector<double> insertion_density_options, int seed, bool pk2) {
+void run_full_test(std::vector<long> num_of_nodes_options, std::vector<double> density_options, std::vector<long> batch_sizes, int seed, bool pk2) {
     std::ofstream resultsFile(pk2 ? "./resultsPK2.csv" : "./resultsKahn.csv"); // When running this test over CLion the csv lands in cmake-build-debug/test/resultsPK2.csv
 
     if (!resultsFile.is_open()) {
@@ -86,15 +86,12 @@ void run_full_test(std::vector<int> num_of_nodes_options, std::vector<double> de
     }
     resultsFile << "number of nodes, number of edges, number of new edges, duration in microseconds\n";
 
-    for(int num_of_nodes : num_of_nodes_options) {
+    for(long num_of_nodes : num_of_nodes_options) {
         for(double density : density_options) {
-            int const max_num_of_edges = num_of_nodes * (num_of_nodes-1)/2;
-            int const num_of_edges = max_num_of_edges * density;
+            long const max_num_of_edges = num_of_nodes/2 * (num_of_nodes-1);
+            long const num_of_edges = max_num_of_edges * density;
 
-            for(double insertion_density : insertion_density_options) {
-                int const num_of_new_edges = max_num_of_edges * insertion_density;
-                if(num_of_new_edges == 0) continue;
-
+            for(double num_of_new_edges  : batch_sizes) {
                 auto durations = run_test_repeated(num_of_nodes, num_of_edges, num_of_new_edges, seed, pk2);
                 double mean = 0;
                 for(auto duration : durations) {
@@ -109,19 +106,22 @@ void run_full_test(std::vector<int> num_of_nodes_options, std::vector<double> de
 }
 
 TEST(evaluate, KahnsAlgorithmApproach) {
-    std::vector<int> num_of_nodes_options = {1000000};
-    std::vector<double> density_options = {0.001, 0.01};
-    std::vector<double> insertion_density_options = {0.000001, 0.0001, 0.001};
+//    std::vector<long> num_of_nodes_options = {1000000};
+//    std::vector<double> density_options = {0.001, 0.01};
+//    std::vector<double> insertion_density_options = {0.000001, 0.0001, 0.001};
+    std::vector<long> num_of_nodes_options = {1000000};
+    std::vector<double> density_options = {0.001};
+    std::vector<long> batch_sizes = {100, 300, 1000};
     int seed = 11032024;
 
-    run_full_test(num_of_nodes_options, density_options, insertion_density_options, seed, false);
+    run_full_test(num_of_nodes_options, density_options, batch_sizes, seed, false);
 }
 
 TEST(evaluate, PK2Approach) {
-    std::vector<int> num_of_nodes_options = {1000000};
-    std::vector<double> density_options = {0.001, 0.01};
-    std::vector<double> insertion_density_options = {0.000001, 0.0001, 0.001};
+    std::vector<long> num_of_nodes_options = {1000000};
+    std::vector<double> density_options = {0.01};
+    std::vector<long> batch_sizes = {1000};
     int seed = 11032024;
 
-    run_full_test(num_of_nodes_options, density_options, insertion_density_options, seed, true);
+    run_full_test(num_of_nodes_options, density_options, batch_sizes, seed, true);
 }

@@ -48,20 +48,20 @@ TEST(dagGenerator, generatesConsitentGraphs) {
     // assert that all the node's incoming and outgoing edges lead to nodes that are also part of the graph
     for(auto& node : dag.nodes_) {
         for(auto n: node->outgoing_edges_) {
-            ASSERT_TRUE(find_node_in_graph(n, dag) >= 0);
+            ASSERT_TRUE(std::find(dag.nodes_.begin(), dag.nodes_.end(), n) != dag.nodes_.end());
         }
         for(auto n: node->outgoing_edges_) {
-            ASSERT_TRUE(find_node_in_graph(n, dag) >= 0);
+            ASSERT_TRUE(std::find(dag.nodes_.begin(), dag.nodes_.end(), n) != dag.nodes_.end());
         }
     }
 
     // repeat for the normal non_dag
     for(auto& node : non_dag.nodes_) {
         for(auto n: node->outgoing_edges_) {
-            ASSERT_TRUE(find_node_in_graph(n, non_dag) >= 0);
+            ASSERT_TRUE(std::find(non_dag.nodes_.begin(), non_dag.nodes_.end(), n) != non_dag.nodes_.end());
         }
         for(auto n : node->outgoing_edges_) {
-            ASSERT_TRUE(find_node_in_graph(n, non_dag) >= 0);
+            ASSERT_TRUE(std::find(non_dag.nodes_.begin(), non_dag.nodes_.end(), n) != non_dag.nodes_.end());
         }
     }
 }

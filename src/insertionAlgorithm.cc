@@ -32,10 +32,10 @@ void insert_edges(graph& dag, std::vector<Edge>& edges) {
     std::sort (invalidating_edges.begin(), invalidating_edges.end(), [](auto n1, auto n2) -> bool {
         return std::get<0>(n1)->index_ > std::get<0>(n2)->index_;
     });
-    int lower_bound = dag.nodes_.size();
-    int start = 0;
+    long lower_bound = dag.nodes_.size();
+    long start = 0;
 
-    for(int i = 0; i < invalidating_edges.size(); ++i) {
+    for(long i = 0; i < invalidating_edges.size(); ++i) {
         auto [x, y] = invalidating_edges[i];
         if(x->index_ < lower_bound && i > 0) {
             std::vector<Edge> edge_region = {invalidating_edges.begin() + start, invalidating_edges.begin() + i};
@@ -51,9 +51,9 @@ void insert_edges(graph& dag, std::vector<Edge>& edges) {
     shift(lower_bound, queue, *inv_order, vacant);
 }
 
-void shift(int starting_index, EdgeQueue& queue, std::vector<node*>& inv_order, std::vector<bool>& vacant) {
-    int num_of_removed_nodes = 0;
-    int i = starting_index;
+void shift(long starting_index, EdgeQueue& queue, std::vector<node*>& inv_order, std::vector<bool>& vacant) {
+    long num_of_removed_nodes = 0;
+    long i = starting_index;
     while(!queue.empty()) {
         node* current_node = inv_order[i];
         if(vacant[current_node->index_]) {
@@ -75,7 +75,7 @@ void shift(int starting_index, EdgeQueue& queue, std::vector<node*>& inv_order, 
     }
 }
 
-void place_node(node* n, int i, std::vector<node*>& inv_order) {
+void place_node(node* n, long i, std::vector<node*>& inv_order) {
     n->index_ = i;
     inv_order[i] = n;
 }
@@ -95,7 +95,7 @@ EdgeQueue discover(std::vector<Edge>& edge_insertions, std::vector<node*>& inv_o
     return queue;
 }
 
-void depth_first_search(node* start, int ub, EdgeQueue& queue, std::vector<node*>& inv_order, std::vector<bool>& vacant) {
+void depth_first_search(node* start, long ub, EdgeQueue& queue, std::vector<node*>& inv_order, std::vector<bool>& vacant) {
     std::vector<bool> visited(inv_order.size(), false);
     std::stack<node*> stack;
     stack.push(start);

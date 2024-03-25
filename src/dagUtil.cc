@@ -7,9 +7,9 @@ void set_to_topological_order(graph& dag) {
     // the algorithm used for creating a topological order of nodes is Kahn's Algorithm
     std::vector<node*> topological_order = {};
     std::vector<node*> nodes_without_incoming_edge = {};
-    std::unordered_map<node*, int> num_of_visited_edges_for_node = {}; // this map keeps track of the number of visited edges by Kahn's Algorithm for each node
-    int visited_edges_total = 0; // this variable keeps track of the total number of visited edges
-    int number_of_saved_nodes = 0; // the number of so far stored nodes in the new topological order
+    std::unordered_map<node*, long> num_of_visited_edges_for_node = {}; // this map keeps track of the number of visited edges by Kahn's Algorithm for each node
+    long visited_edges_total = 0; // this variable keeps track of the total number of visited edges
+    long number_of_saved_nodes = 0; // the number of so far stored nodes in the new topological order
 
     // Look for all nodes that have no incoming edges and store them in nodes_without_incoming_edge
     for(auto node : dag.nodes_) {
@@ -49,23 +49,16 @@ void set_to_topological_order(graph& dag) {
     }
 }
 
-// looks for the given node in the given graph
-// return -1 if the node is not inside the graph and the index_ of the node in the graph's nodes if the node is inside the graph
-int find_node_in_graph(node* node, graph& graph) {
-    for(int i = 0; i < graph.nodes_.size(); i++) {
-        if(graph.nodes_[i] == node) return i;
-    }
-    return -1;
-}
-
 bool graph_is_in_topological_order(graph& graph) {
-    for(int i = 0; i < graph.nodes_.size(); i++) {
+    for(long i = 0; i < graph.nodes_.size(); ++i) {
+        if(graph.nodes_[i]->index_ != i) return false;
         for(auto n : graph.nodes_[i]->incoming_edges_) {
-            if(find_node_in_graph(n, graph) > i) return false;
+            if(n->index_ >= i) return false;
         }
         for(auto n : graph.nodes_[i]->outgoing_edges_) {
-            if(find_node_in_graph(n, graph) < i) return false;
+            if(n->index_ <= i) return false;
         }
     }
     return true;
 }
+

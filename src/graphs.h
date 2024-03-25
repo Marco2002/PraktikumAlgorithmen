@@ -5,12 +5,12 @@ namespace graphs {
     struct node {
 		std::vector<node*> outgoing_edges_;
 		std::vector<node*> incoming_edges_;
-        int index_; // current index_ in the vector of nodes of the graph
+        long index_; // current index_ in the vector of nodes of the graph
 	};
 
     struct graph {
         std::vector<node*> nodes_;
-        int number_of_edges_;
+        long number_of_edges_;
     };
 
     using Edge = std::tuple<node*, node*>;
