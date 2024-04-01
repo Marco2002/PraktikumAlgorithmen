@@ -1,10 +1,11 @@
 #include "dagGenerator.h"
-#include "dagUtil.h"
 
 #include <random>
 #include <algorithm>
 #include <stdexcept>
 #include <unordered_set>
+
+#include "dagUtil.h"
 
 using namespace std;
 
@@ -46,7 +47,7 @@ graph generate_graph(long number_of_nodes, long long number_of_edges, bool shoul
         throw std::invalid_argument( "number of needs to be at least 0" );
     }
     if(should_be_dag && number_of_edges > ((long long) number_of_nodes)/2 * (((long long) number_of_nodes) -1) ||
-            !should_be_dag && number_of_edges > ((long long) number_of_nodes) * ((long long) number_of_nodes)-1) {
+            !should_be_dag && number_of_edges > ((long long) number_of_nodes) * (((long long) number_of_nodes)-1)) {
         throw std::invalid_argument( "too many edges" );
     }
     std::vector<node*> nodes;
@@ -98,18 +99,16 @@ graph generate_graph(long number_of_nodes, long long number_of_edges, bool shoul
     return dag;
 }
 
-std::vector<Edge> generate_extra_edges(graph& dag, long long number_of_edges) {
+std::vector<Edge> generate_extra_edges(graph const& dag, long long number_of_edges) {
     std::uniform_int_distribution<long> node_distribution(0,dag.nodes_.size()-1);
     std::unordered_set<std::tuple<long, long>, hash_tuple>  existing_edges = {};
     std::vector<Edge> generated_edges = {};
     // add so exisiting edges to generated_edges
-    for(auto n : dag.nodes_) {
-        for(auto m : n->outgoing_edges_) {
+    for(auto const n : dag.nodes_) {
+        for(auto const m : n->outgoing_edges_) {
             existing_edges.insert(std::make_tuple(n->index_, m->index_));
         }
     }
-
-
     // generate random new edges that don't invalidate current topological order
     for(long long i = 0; i < number_of_edges; ++i) {
         // generate two random indexes

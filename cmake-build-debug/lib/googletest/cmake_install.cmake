@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/lib/googletest
+# Install script for directory: C:/Users/marco/workspace/PraktikumAlgorithmen/lib/googletest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,12 +34,12 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "E:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/objdump.exe")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/marco/OneDrive - stud.tu-darmstadt.de/workspace/PraktikumAlgorithmenWS23-24/cmake-build-debug/lib/googletest/googlemock/cmake_install.cmake")
+  include("C:/Users/marco/workspace/PraktikumAlgorithmen/cmake-build-debug/lib/googletest/googlemock/cmake_install.cmake")
 
 endif()
 

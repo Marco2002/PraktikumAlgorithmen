@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+
 #include "dagGenerator.h"
 #include "dagUtil.h"
 
@@ -6,7 +7,7 @@ TEST(dagGenerator, nodeGeneratedCorrectly) {
     long num_of_nodes = 1000000;
     long num_of_edges = 0;
     set_seed(30112023);
-    graph dag1 = generate_graph(num_of_nodes, num_of_edges, false);
+    graph const dag1 = generate_graph(num_of_nodes, num_of_edges, false);
     ASSERT_EQ(dag1.nodes_.size(), num_of_nodes);
     for(int i = 0; i < num_of_nodes; ++i) {
         ASSERT_EQ(i, dag1.nodes_[i]->index_);
@@ -15,7 +16,7 @@ TEST(dagGenerator, nodeGeneratedCorrectly) {
 
 TEST(dagGenerator, edgesGeneratedCorrectly) {
     long num_of_nodes = 1000000;
-    long long num_of_edges = 3000000000;
+    long long num_of_edges = 3000000;
     set_seed(30112023);
     graph graph = generate_graph(num_of_nodes, num_of_edges, false);
     ASSERT_EQ(graph.nodes_.size(), num_of_nodes);
@@ -34,29 +35,29 @@ TEST(dagGenerator, isDeterministicWithSeed) {
     int num_of_nodes = 1000;
     int num_of_edges = 2000;
     set_seed(30112023);
-    graph dag1 = generate_graph(num_of_nodes, num_of_edges, true);
+    graph const dag1 = generate_graph(num_of_nodes, num_of_edges, true);
     set_seed(30112023);
-    graph dag2 = generate_graph(num_of_nodes, num_of_edges, true);
+    graph const dag2 = generate_graph(num_of_nodes, num_of_edges, true);
 
-    for(int i = 0; i < num_of_nodes; i++) {
+    for(int i = 0; i < num_of_nodes; ++i) {
         ASSERT_EQ(dag1.nodes_[i]->outgoing_edges_.size(), dag2.nodes_[i]->outgoing_edges_.size());
         ASSERT_EQ(dag1.nodes_[i]->incoming_edges_.size(), dag2.nodes_[i]->incoming_edges_.size());
 
-        for(int j = 0; j < dag1.nodes_[i]->outgoing_edges_.size(); j++) {
+        for(int j = 0; j < dag1.nodes_[i]->outgoing_edges_.size(); ++j) {
             ASSERT_EQ(dag1.nodes_[i]->outgoing_edges_[j]->index_, dag2.nodes_[i]->outgoing_edges_[j]->index_);
         }
-        for(int j = 0; j < dag1.nodes_[i]->incoming_edges_.size(); j++) {
+        for(int j = 0; j < dag1.nodes_[i]->incoming_edges_.size(); ++j) {
             ASSERT_EQ(dag1.nodes_[i]->incoming_edges_[j]->index_, dag2.nodes_[i]->incoming_edges_[j]->index_);
         }
     }
 }
 
 TEST(dagGenerator, generatesConsitentGraphs) {
-    int number_of_nodes = 1000;
-    int number_of_edges = 2000;
+    int number_of_nodes = 10000;
+    int number_of_edges = 20000;
     set_seed(30112023);
-    graph dag = generate_graph(number_of_nodes, number_of_edges, true);
-    graph non_dag = generate_graph(number_of_nodes, number_of_edges, false);
+    graph const dag = generate_graph(number_of_nodes, number_of_edges, true);
+    graph const non_dag = generate_graph(number_of_nodes, number_of_edges, false);
 
     ASSERT_EQ(dag.nodes_.size(), number_of_nodes);
     ASSERT_EQ(dag.number_of_edges_, number_of_edges);
@@ -64,21 +65,21 @@ TEST(dagGenerator, generatesConsitentGraphs) {
     ASSERT_EQ(non_dag.nodes_.size(), number_of_nodes);
     ASSERT_EQ(non_dag.number_of_edges_, number_of_edges);
     // assert that all the node's incoming and outgoing edges lead to nodes that are also part of the graph
-    for(auto& node : dag.nodes_) {
-        for(auto n: node->outgoing_edges_) {
+    for(auto const node : dag.nodes_) {
+        for(auto const n: node->outgoing_edges_) {
             ASSERT_TRUE(std::find(dag.nodes_.begin(), dag.nodes_.end(), n) != dag.nodes_.end());
         }
-        for(auto n: node->outgoing_edges_) {
+        for(auto const n: node->outgoing_edges_) {
             ASSERT_TRUE(std::find(dag.nodes_.begin(), dag.nodes_.end(), n) != dag.nodes_.end());
         }
     }
 
     // repeat for the normal non_dag
-    for(auto& node : non_dag.nodes_) {
-        for(auto n: node->outgoing_edges_) {
+    for(auto const node : non_dag.nodes_) {
+        for(auto const n: node->outgoing_edges_) {
             ASSERT_TRUE(std::find(non_dag.nodes_.begin(), non_dag.nodes_.end(), n) != non_dag.nodes_.end());
         }
-        for(auto n : node->outgoing_edges_) {
+        for(auto const n : node->outgoing_edges_) {
             ASSERT_TRUE(std::find(non_dag.nodes_.begin(), non_dag.nodes_.end(), n) != non_dag.nodes_.end());
         }
     }

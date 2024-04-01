@@ -1,9 +1,10 @@
 #include "gtest/gtest.h"
+
 #include "insertionAlgorithm.h"
 #include "dagGenerator.h"
 #include "dagUtil.h"
 
-TEST(insertionAlgorithm, ShiftTestDeterministic) {
+TEST(insertionAlgorithm, ShiftTestHardcoded) {
     // hard coded test case based on graph from Figure 3
     // in "A Batch Algorithm for Maintaining a Topological Order" by David J Pearce
     int starting_index = 0;
@@ -46,7 +47,7 @@ TEST(insertionAlgorithm, ShiftTestDeterministic) {
     ASSERT_EQ(inv_order[8], &nodes[2]);
 }
 
-TEST(insertionAlgorithm, DiscoverTestDeterministic) {
+TEST(insertionAlgorithm, DiscoverTestHardcoded) {
     // hard coded test case based on graph from Affected Region 3 in Figure 2
     // in "A Batch Algorithm for Maintaining a Topological Order" by David J Pearce
     int number_of_nodes = 9;
@@ -101,7 +102,7 @@ TEST(insertionAlgorithm, DiscoverTestDeterministic) {
     ASSERT_TRUE(queue.empty());
 }
 
-TEST(insertionAlgorithm, InsertEdgeTestDeterministic) {
+TEST(insertionAlgorithm, InsertEdgeTestHardcoded) {
     // hard coded test case based on Figure 1
     // in "A Batch Algorithm for Maintaining a Topological Order" by David J Pearce
     int number_of_nodes = 7;
@@ -144,10 +145,10 @@ TEST(insertionAlgorithm, InsertEdgeTestDeterministic) {
     ASSERT_TRUE(graph_is_in_topological_order(dag));
 }
 
-TEST(insertionAlgorithm, FullAlgorihmDeterministic) {
-    int num_of_nodes = 3000;
-    int num_of_edges = 6000;
-    int num_of_new_edges = 3000; // 517 will be invalidating
+TEST(insertionAlgorithm, FullAlgorihm) {
+    int num_of_nodes = 10000;
+    long long num_of_edges = 10000;
+    int num_of_new_edges = 5000; // 517 will be invalidating
     set_seed(21012024);
 
     graph dag = generate_graph(num_of_nodes, num_of_edges, true);

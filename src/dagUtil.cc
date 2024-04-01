@@ -11,7 +11,7 @@ void set_to_topological_order(graph& dag) {
     long long visited_edges_total = 0; // this variable keeps track of the total number of visited edges
 
     // Look for all nodes that have no incoming edges and store them in nodes_without_incoming_edge
-    for(auto node : dag.nodes_) {
+    for(auto const node : dag.nodes_) {
         if(node->incoming_edges_.empty()) {
             nodes_without_incoming_edge.push_back(node);
         }
@@ -26,7 +26,7 @@ void set_to_topological_order(graph& dag) {
         topological_order.push_back(n);
 
         // loop through each edge e of each node m that has an incoming edge from n to m
-        for(auto m : n->outgoing_edges_) {
+        for(auto const m : n->outgoing_edges_) {
 
             // increment num_of_visited_edges_for_node for node m
             num_of_visited_edges_for_node[m] = num_of_visited_edges_for_node[m] + 1;
@@ -47,13 +47,13 @@ void set_to_topological_order(graph& dag) {
     }
 }
 
-bool graph_is_in_topological_order(graph& graph) {
+bool graph_is_in_topological_order(graph const& graph) {
     for(long i = 0; i < graph.nodes_.size(); ++i) {
         if(graph.nodes_[i]->index_ != i) return false;
-        for(auto n : graph.nodes_[i]->incoming_edges_) {
+        for(auto const n : graph.nodes_[i]->incoming_edges_) {
             if(n->index_ >= i) return false;
         }
-        for(auto n : graph.nodes_[i]->outgoing_edges_) {
+        for(auto const n : graph.nodes_[i]->outgoing_edges_) {
             if(n->index_ <= i) return false;
         }
     }
